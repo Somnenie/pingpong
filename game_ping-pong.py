@@ -20,3 +20,5 @@ while game:
 
     display.update()
     clock.tick(FPS)
+
+    print('ni')
