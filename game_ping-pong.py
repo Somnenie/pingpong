@@ -5,8 +5,8 @@ from typing import Any
 win_heidth = 455
 win_wight = 802
 
-dx = 3
-dy = 3
+#dx = 3
+#dy = 3
 
 win = display.set_mode((802, 455))
 background = transform.scale(image.load('Board.png'),(802, 455))
@@ -47,20 +47,26 @@ class Enemy(GameSprite):
     def update(self):
         global popusk
         
-        self.rect.x += self.speed
+        dx = 3
+        dy = 3
 
-        if self.rect.y > win_heidth:
-            self.rect.x = randint(80, win_wight - 80)
-            self.rect.y = 0
-            popusk = popusk + 1
+        if self.rect.y < win_heidth:
+            self.rect.x += self.speed
+            self.rect.y -= self.speed
+            
         if ball.rect.colliderect(friend.rect):
-            dx *= -1
-        
-
+            self.speed *= -1
+            
+        if ball.rect.colliderect(player.rect):
+            self.speed *= -1
+            
+        if ball.rect.y > 450 or ball.rect.y <0:
+            self.speed *= -1
+            
 
 player = Player('Computer.png', 80, 180, 18, 120, 10)
 friend = Friend('Player.png', 700, 180, 18, 120, 10)
-ball = Enemy('Ball.png', 400, 180, 45, 45, 10)
+ball = Enemy('Ball.png', 400, 180, 45, 45, 3)
 
 finish = False
 game = True 
